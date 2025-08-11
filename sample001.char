@@ -1,5 +1,7 @@
+// 示例1：Hello world!
 // 本例是察语言实现一般语言常见的第一个例子：输出Hello world!字样。
 // 察语言中的函数 pln 的功能等同于其他语言中的 println
+// 作用是输出一行文字
 
 pln("Hello world!")
  
