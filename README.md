@@ -114,5 +114,6 @@ char
 - 在Go语言中作嵌入式引擎运行，可参考cmd子目录中的代码；
 - 在其他任何语言中通过DLL调用（仅支持Windows）；
 - 作为系统服务运行（需要管理员或root用户权限）： `char -reinstallService`；
+- 作为一个3合1服务器（WEB、应用、微服务）运行： `char -server` 或 `char -server -certDir=/datax/cert -webDir=/datax/xweb -dir=/datax/ms -port=80 -sslPort=443`
 
 
