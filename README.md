@@ -190,6 +190,71 @@ func main() {
 }
 ```
 
+下面是另一个例子：
+
+```go
+package main
+
+import (
+    "fmt"
+
+    "github.com/topxeq/charlang"
+)
+
+func main() {
+    script := `
+param ...args
+
+mapEach := func(seq, fn) {
+
+    if !isArray(seq) {
+        return error("want array, got " + typeName(seq))
+    }
+
+    var out = []
+
+    if sz := len(seq); sz > 0 {
+        out = repeat([0], sz)
+    } else {
+        return out
+    }
+
+    try {
+        for i, v in seq {
+            out[i] = fn(v)
+        }
+    } catch err {
+        println(err)
+    } finally {
+        return out, err
+    }
+}
+
+global multiplier
+
+v, err := mapEach(args, func(x) { return x*multiplier })
+if err != undefined {
+    return err
+}
+return v
+`
+
+    bytecode, err := charlang.Compile([]byte(script), charlang.DefaultCompilerOptions)
+    if err != nil {
+        panic(err)
+    }
+    globals := charlang.Map{"multiplier": charlang.Int(2)}
+    ret, err := charlang.NewVM(bytecode).Run(
+        globals,
+        charlang.Int(1), charlang.Int(2), charlang.Int(3), charlang.Int(4),
+    )
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(ret) // [2, 4, 6, 8]
+}
+```
+
 VM的执行可以通过使用`Abort`方法中止，这将导致`Run`方法返回一个错误，该错误包装了 `ErrVMAborted` 错误。`Abort` 必须从另一个不同的goroutine中调用，多次调用是安全的。
 
 从 `Run` 方法返回的错误可以通过以下方式检查特定的错误值：Go 语言中，`errors` 包提供了 `errors.Is` 函数，用于判断一个错误是否为指定类型的错误。
