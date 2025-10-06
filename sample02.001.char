@@ -1,0 +1,22 @@
+// 示例：undefined数据类型
+// 在察语言中，使用“undefined”值来表示意外或不存在的值：
+
+// 声明后没有赋值的变量，等同于赋值为undefined
+var v1
+
+var v2 = undefined
+
+pln(v1, v2)
+
+// 没有明确返回值的函数被认为返回了`undefined`值。
+a := func() { b := 4 }()    // a == undefined
+
+// 对映射类型的数据试图获取其中不存在的键值时，会返回undefined
+c := {a: "foo"}["b"]        // c == undefined
+
+// 一些内置函数也有可能会返回 `undefined`。
+d := sort(undefined)        // d == undefined
+
+e := delete({}, "foo")      // "delete" always returns undefined
+
+pln(a, c, d, e)
