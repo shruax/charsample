@@ -238,7 +238,7 @@ retValue, err := charlang.NewVM(bytecode).Run(g, charlang.Int(2018))
 func (vm *VM) Run(globals Object, args ...Object) (Object, error)
 ```
 
-下面是另一个较完整的例子，包含了全局变量、可变输入参数、 `try...catch...finally` 结构等：
+下面是另一个较完整的例子，包含了全局变量、可变输入参数、数组、循环、 `try...catch...finally` 结构等，前文未涉及的概念具体可参看后面章节里例子中的详细说明：
 
 ```go
 package main
