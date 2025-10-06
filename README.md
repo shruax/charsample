@@ -111,10 +111,133 @@ char
 - 选择代码文件并执行： `char -selectScript`；
 - 启动内置多行文本编辑器编辑后再执行： `char -cedit d:\scripts\test.char`，然后按 Ctrl-Q 执行输入的代码，Ctrl-X 退出；
 - 在内置图形编辑器（目前仅支持Windows）中编辑代码执行： `char -edit d:\scripts\test.char`；
-- 在Go语言中作嵌入式引擎运行，可参考cmd子目录中的代码；
+- 在Go语言中作嵌入式脚本引擎运行，可参考察语言源码仓库中cmd子目录中的代码，或者参看本节后面的详细说明；
+- 将脚本编译为一个可执行文件执行（Windows下如果仅希望显示图形界面而不需要命令行窗口，需要使用察语言的GUI版，即名为charw.exe的主程序来进行脚本编译），详见本节后面的详细说明；
 - 在其他任何语言中通过DLL调用（仅支持Windows）；
 - 作为系统服务运行（需要管理员或root用户权限）： `char -reinstallService`；
 - 作为一个3合1服务器（WEB、应用、微服务）运行： `char -server` 或 `char -server -certDir=/datax/cert -webDir=/datax/xweb -dir=/datax/ms -port=80 -sslPort=443`
+
+#### 将脚本编译为一个可执行文件执行
+
+```shell
+D:\tmp>char -compile -output=basic.exe -example basic.char
+
+D:\tmpx>basic.exe
+3.4000000000000004
+
+D:\tmpx>basic
+3.4000000000000004
+
+```
+
+#### Windows下将脚本编译为无命令行窗口仅图形GUI的单个可执行文件
+
+在Windows中使用察语言的GUI版主程序charw.exe编译脚本，以避免在运行时显示控制台窗口（CMD）。例如：
+
+```shell
+
+charw -compile -output=cal.exe -example guiCalculator.char
+
+D:\tmpx>cal.exe
+
+```
+
+#### 在Go语言中作嵌入式脚本引擎运行察语言脚本
+
+要在Go语言（Golang） 中运行察语言（Charlang）脚本，必须先把脚本编译为一个 `Bytecode` 对象，然后才能由察语言虚拟机（VM）执行。察语言默认启用了一个简单的优化器
+来进行编译，优化器会将不影响代码执行的简单表达式替换为常数值。请注意，可以禁用此选项来加快编译过程。
+
+注意，察语言还在活跃开发阶段，因此为了顺利编译下面的代码，需要在 `$GOPATH/src/github.com/topxeq` 目录（Windows下为 `%GOPATH%/src/github.com/topxeq` ）下先执行 `git clone https://github.com/topxeq/tkc` ，然后修改本代码目录的 go.mod 文件，在其中增加 `replace github.com/topxeq/tkc v0.0.0 => $GOPATH/src/github.com/topxeq/tkc` 一行，注意修改上面的 `$GOPATH` 为当前系统中Go语言的GOPATH变量指向的实际目录。
+
+```go
+package main
+
+import (
+  "fmt"
+
+  "github.com/topxeq/charlang"
+)
+
+func main() {
+  script := `
+  param num
+
+  var fib
+  fib = func(n, a, b) {
+    if n == 0 {
+      return a
+    } else if n == 1 {
+      return b
+    }
+    return fib(n-1, b, a+b)
+    }
+  return fib(num, 0, 1)
+  `
+  
+  bytecode, err := charlang.Compile([]byte(script), &charlang.DefaultCompilerOptions)
+
+  if err != nil {
+    panic(err)
+  }
+
+  retValue, err := charlang.NewVM(bytecode).Run(nil,  charlang.Int(35))
+
+  if err != nil {
+    panic(err)
+  }
+
+  fmt.Println(retValue) // 9227465
+}
+```
+
+VM的执行可以通过使用`Abort`方法中止，这将导致`Run`方法返回一个错误，该错误包装了 `ErrVMAborted` 错误。`Abort` 必须从另一个不同的goroutine中调用，多次调用是安全的。
+
+从 `Run` 方法返回的错误可以通过以下方式检查特定的错误值：Go 语言中，`errors` 包提供了 `errors.Is` 函数，用于判断一个错误是否为指定类型的错误。
+
+`VM`实例是可复用的。`VM`的`Clear`方法会清除所有持有的引用并确保堆栈和模块缓存被清理。
+
+```go
+vm := charlang.NewVM(bytecode)
+
+retValue, err := vm.Run(nil,  Charlang.Int(35))
+
+/* 可以执行Clear方法以清除运行数据 */
+// vm.Clear()
+
+retValue, err := vm.Run(nil,  Charlang.Int(34))
+/* ... */
+```
+
+全局变量可以通过`global`关键字声明并提供给VM。这样脚本就可以访问全局变量。一般应使用类似Map的对象来获取/设置全局变量，如下所示。
+
+```go
+script := `
+param num
+
+global upperBound
+
+return num > upperBound ? "big" : "small"
+`
+
+bytecode, err := charlang.Compile([]byte(script), &charlang.DefaultCompilerOptions)
+
+if err != nil {
+  panic(err)
+}
+
+g := charlang.Map{"upperBound": charlang.Int(1984)}
+
+retValue, err := charlang.NewVM(bytecode).Run(g, charlang.Int(2018))
+
+// retValue == charlang.String("big")
+```
+
+从上面的例子可以看出，VM的`Run`方法接受多个参数，第一个为全局变量globals，它是一个映射（Map）类型的，在其中用键值对来供脚本中的global关键字来声明后即可使用，传递 `nil` 值表示不适用全局变量。`args`可变参数允许向VM提供任意数量的参数，这些参数通过 `param` 关键字来访问。
+
+```go
+func (vm *VM) Run(globals Object, args ...Object) (Object, error)
+```
+
 
 ## 例子代码索引
 
