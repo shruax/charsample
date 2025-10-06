@@ -123,4 +123,6 @@ char
 - Hello world! [sample01.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.001.char)
 - 基本赋值与计算 [sample01.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.002.char)
 - 注释的写法 [sample01.003.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.003.char)
+- 变量可赋值为不同类型的数值 [sample01.004.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.004.char)
+- 函数的声明与使用（递归法计算斐波那契数列） [sample01.005.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.005.char)
 
