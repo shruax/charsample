@@ -238,7 +238,7 @@ retValue, err := charlang.NewVM(bytecode).Run(g, charlang.Int(2018))
 func (vm *VM) Run(globals Object, args ...Object) (Object, error)
 ```
 
-下面是另一个较完整的例子：
+下面是另一个较完整的例子，包含了全局变量、可变输入参数、 `try...catch...finally` 结构等：
 
 ```go
 package main
@@ -284,21 +284,26 @@ v, err := mapEach(args, func(x) { return x*multiplier })
 if err != undefined {
     return err
 }
+
 return v
 `
 
-    bytecode, err := charlang.Compile([]byte(script), charlang.DefaultCompilerOptions)
+    bytecode, err := charlang.Compile([]byte(script), &charlang.DefaultCompilerOptions)
     if err != nil {
         panic(err)
     }
+    
     globals := charlang.Map{"multiplier": charlang.Int(2)}
+    
     ret, err := charlang.NewVM(bytecode).Run(
         globals,
         charlang.Int(1), charlang.Int(2), charlang.Int(3), charlang.Int(4),
     )
+    
     if err != nil {
         panic(err)
     }
+    
     fmt.Println(ret) // [2, 4, 6, 8]
 }
 ```
