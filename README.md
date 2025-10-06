@@ -190,7 +190,55 @@ func main() {
 }
 ```
 
-下面是另一个例子：
+VM的执行可以通过使用`Abort`方法中止，这将导致`Run`方法返回一个错误，该错误包装了 `ErrVMAborted` 错误。`Abort` 必须从另一个不同的goroutine中调用，多次调用是安全的。
+
+从 `Run` 方法返回的错误可以通过以下方式检查特定的错误值：Go 语言中，`errors` 包提供了 `errors.Is` 函数，用于判断一个错误是否为指定类型的错误。
+
+`VM`实例是可复用的。`VM`的`Clear`方法会清除所有持有的引用并确保堆栈和模块缓存被清理。
+
+```go
+vm := charlang.NewVM(bytecode)
+
+retValue, err := vm.Run(nil,  Charlang.Int(35))
+
+/* 可以执行Clear方法以清除运行数据 */
+// vm.Clear()
+
+retValue, err := vm.Run(nil,  Charlang.Int(34))
+/* ... */
+```
+
+全局变量可以通过`global`关键字声明并提供给VM。这样脚本就可以访问全局变量。一般应使用类似Map的对象来获取/设置全局变量，如下所示。
+
+```go
+script := `
+param num
+
+global upperBound
+
+return num > upperBound ? "big" : "small"
+`
+
+bytecode, err := charlang.Compile([]byte(script), &charlang.DefaultCompilerOptions)
+
+if err != nil {
+  panic(err)
+}
+
+g := charlang.Map{"upperBound": charlang.Int(1984)}
+
+retValue, err := charlang.NewVM(bytecode).Run(g, charlang.Int(2018))
+
+// retValue == charlang.String("big")
+```
+
+从上面的例子可以看出，VM的`Run`方法接受多个参数，第一个为全局变量globals，它是一个映射（Map）类型的，在其中用键值对来供脚本中的global关键字来声明后即可使用，传递 `nil` 值表示不适用全局变量。`args`可变参数允许向VM提供任意数量的参数，这些参数通过 `param` 关键字来访问。
+
+```go
+func (vm *VM) Run(globals Object, args ...Object) (Object, error)
+```
+
+下面是另一个较完整的例子：
 
 ```go
 package main
@@ -253,54 +301,6 @@ return v
     }
     fmt.Println(ret) // [2, 4, 6, 8]
 }
-```
-
-VM的执行可以通过使用`Abort`方法中止，这将导致`Run`方法返回一个错误，该错误包装了 `ErrVMAborted` 错误。`Abort` 必须从另一个不同的goroutine中调用，多次调用是安全的。
-
-从 `Run` 方法返回的错误可以通过以下方式检查特定的错误值：Go 语言中，`errors` 包提供了 `errors.Is` 函数，用于判断一个错误是否为指定类型的错误。
-
-`VM`实例是可复用的。`VM`的`Clear`方法会清除所有持有的引用并确保堆栈和模块缓存被清理。
-
-```go
-vm := charlang.NewVM(bytecode)
-
-retValue, err := vm.Run(nil,  Charlang.Int(35))
-
-/* 可以执行Clear方法以清除运行数据 */
-// vm.Clear()
-
-retValue, err := vm.Run(nil,  Charlang.Int(34))
-/* ... */
-```
-
-全局变量可以通过`global`关键字声明并提供给VM。这样脚本就可以访问全局变量。一般应使用类似Map的对象来获取/设置全局变量，如下所示。
-
-```go
-script := `
-param num
-
-global upperBound
-
-return num > upperBound ? "big" : "small"
-`
-
-bytecode, err := charlang.Compile([]byte(script), &charlang.DefaultCompilerOptions)
-
-if err != nil {
-  panic(err)
-}
-
-g := charlang.Map{"upperBound": charlang.Int(1984)}
-
-retValue, err := charlang.NewVM(bytecode).Run(g, charlang.Int(2018))
-
-// retValue == charlang.String("big")
-```
-
-从上面的例子可以看出，VM的`Run`方法接受多个参数，第一个为全局变量globals，它是一个映射（Map）类型的，在其中用键值对来供脚本中的global关键字来声明后即可使用，传递 `nil` 值表示不适用全局变量。`args`可变参数允许向VM提供任意数量的参数，这些参数通过 `param` 关键字来访问。
-
-```go
-func (vm *VM) Run(globals Object, args ...Object) (Object, error)
 ```
 
 
