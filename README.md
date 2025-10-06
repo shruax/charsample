@@ -116,4 +116,11 @@ char
 - 作为系统服务运行（需要管理员或root用户权限）： `char -reinstallService`；
 - 作为一个3合1服务器（WEB、应用、微服务）运行： `char -server` 或 `char -server -certDir=/datax/cert -webDir=/datax/xweb -dir=/datax/ms -port=80 -sslPort=443`
 
+# 例子代码索引
+
+## 基础示例
+
+- Hello world! [sample01.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.001.char)
+- 基本赋值与计算 [sample01.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.002.char)
+- 注释的写法 [sample01.003.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.003.char)
 
