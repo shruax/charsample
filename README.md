@@ -241,6 +241,8 @@ func (vm *VM) Run(globals Object, args ...Object) (Object, error)
 
 ## 例子代码索引
 
+注意，每个代码例子中都有详细的注释说明，帮助理解察语言中的各种概念、功能与用法等。
+
 ### 基础示例
 
 - Hello world! [sample01.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.001.char)
