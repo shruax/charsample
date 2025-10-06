@@ -2,11 +2,11 @@
 
 本仓库包含了察语言（Charlang）的循序渐进的各种示例代码。
 
-# 察语言简介
+## 察语言简介
 
 [察语言（Charlang）](https://topget.org/charlang)是一种快速、动态的脚本语言，可以独立运行，也可以嵌入到Go语言应用程序中运行。 察语言在虚拟机上先编译为字节码再执行，速度优于一般的解释型语言。察语言基于Go语言编写，在语法上非常接近于Go语言，一定程度上可以看做提高了易用性和方便性的Go语言，例如：察语言去除了一些Go语言强制的书写要求、去除了强类型语言的一些限制、引入了一般语言常用的try-catch-finally组合取代Go语言基于defer的异常处理机制等。
 
-# 察语言的特性
+## 察语言的特性
 
 - 单个可执行文件的主程序，即可高速运行所有察语言脚本代码；
 - 基于纯Go语言编写，无需依赖CGO；
@@ -22,7 +22,7 @@
 - 支持服务器模式运行，内置WEB、应用、微服务三合一服务器，可以处理HTTP请求、提供静态WEB资源服务、提供类似PHP/JSP/ASP的动态页面服务、访问数据库进行存取、进行协议转换等，并支持但语句启动SOCKS或透明代理服务器；
 - 代码以纯文本方式分发，也可以进行编译生成单个可执行文件进行分发，解决源代码泄露的顾虑；
 
-# 相关链接
+## 相关链接
 
 察语言的官网地址在 [这里](https://topget.org/charlang) 。建议从官网下载各个操作系统对应的可执行程序包。
 
@@ -35,9 +35,9 @@
 - [Linux Amd64](https://topget.org/pub/char.tar.gz)
 - [Linux Arm8(Termux)](https://topget.org/pub/charArm8.tar.gz)
 
-# 快速入门
+## 快速入门
 
-## 快速安装与使用
+### 快速安装与使用
 
 - 从官网下载对应操作系统的察语言主程序压缩包，解压后即可使用，建议将主程序所在的路径加入系统路径，或直接将主程序（char.exe或char）放在某个已经在系统路径内的文件夹下。
 - 不带参数直接运行主程序即可进入察语言的交互式编程环境（REPL）。
@@ -72,7 +72,7 @@ aaa[3]
 D:\tmpx>
 ```
 
-## 从源码编译执行察语言
+### 从源码编译执行察语言
 
 如果需要编译其他操作系统下的察语言（例如在某些未提供察语言可执行程序包的操作系统下使用，这种方式支持所有Go语言支持的操作系统），或者需要修改或拓展察语言的功能，可以下载[Github仓库](https://github.com/topxeq/charlang)上的察语言源码进行修改和编译。这种方式需要先安装好Go语言开发环境。
 
@@ -98,7 +98,7 @@ char
 ```
 
 
-## 各种运行察语言的方式
+### 各种运行察语言的方式
 
 - 不带参数将直接启动察语言交互式编程环境： `./char`；
 - 运行某个源文件中的代码： `char d:\scripts\test.char`；
@@ -116,9 +116,9 @@ char
 - 作为系统服务运行（需要管理员或root用户权限）： `char -reinstallService`；
 - 作为一个3合1服务器（WEB、应用、微服务）运行： `char -server` 或 `char -server -certDir=/datax/cert -webDir=/datax/xweb -dir=/datax/ms -port=80 -sslPort=443`
 
-# 例子代码索引
+## 例子代码索引
 
-## 基础示例
+### 基础示例
 
 - Hello world! [sample01.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.001.char)
 - 基本赋值与计算 [sample01.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.002.char)
