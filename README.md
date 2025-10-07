@@ -321,7 +321,7 @@ return v
 - 变量的类型、声明与赋值 [sample01.004.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.004.char)
 - 函数的声明与使用（递归法计算斐波那契数列） [sample01.005.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.005.char)
 
-### 数据类型
+### 常见数据类型详解
 
 - undefined数据类型 [sample02.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.001.char)
 - 布尔数据类型 [sample02.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.002.char)
