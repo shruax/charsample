@@ -323,7 +323,7 @@ return v
 
 ### 常见数据类型详解
 
-- undefined数据类型 [sample02.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.001.char)
+- undefined数据类型 [sample02.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.001.char)
 - 布尔数据类型 [sample02.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.002.char)
 - 整数数据类型 [sample02.003.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.003.char)
 - 浮点数数据类型 [sample02.004.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.004.char)
