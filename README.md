@@ -320,6 +320,11 @@ return v
 - 注释的写法 [sample01.003.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.003.char)
 - 变量的类型、声明与赋值 [sample01.004.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.004.char)
 - 函数的声明与使用（递归法计算斐波那契数列） [sample01.005.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.005.char)
+
+### 数据类型
+
 - undefined数据类型 [sample02.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.001.char)
 - 布尔数据类型 [sample02.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.002.char)
+- 整数数据类型 [sample02.003.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.003.char)
+- 浮点数数据类型 [sample02.004.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.004.char)
 
