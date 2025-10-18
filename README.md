@@ -315,22 +315,22 @@ return v
 
 ### 基础示例
 
-- Hello world! [sample01.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.001.char)
-- 基本赋值与计算 [sample01.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.002.char)
-- 注释的写法 [sample01.003.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.003.char)
-- 变量的类型、声明与赋值 [sample01.004.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.004.char)
-- 函数的声明与使用（递归法计算斐波那契数列） [sample01.005.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.005.char)
+- Hello world! [sample01.001.char](https://github.com/shruax/charsample/blob/main/sample01.001.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.001.char)
+- 基本赋值与计算 [sample01.002.char](https://github.com/shruax/charsample/blob/main/sample01.002.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.002.char)
+- 注释的写法 [sample01.003.char](https://github.com/shruax/charsample/blob/main/sample01.003.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.003.char)
+- 变量的类型、声明与赋值 [sample01.004.char](https://github.com/shruax/charsample/blob/main/sample01.004.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.004.char)
+- 函数的声明与使用（递归法计算斐波那契数列） [sample01.005.char](https://github.com/shruax/charsample/blob/main/sample01.005.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.005.char)
 
 ### 常见数据类型详解
 
-- undefined数据类型 [sample02.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.001.char)
-- 布尔数据类型 [sample02.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.002.char)
-- 整数数据类型 [sample02.003.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.003.char)
-- 浮点数数据类型 [sample02.004.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.004.char)
-- 字节数数据类型 [sample02.005.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.005.char)
+- undefined数据类型 [sample02.001.char](https://github.com/shruax/charsample/blob/main/sample02.001.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.001.char)
+- 布尔数据类型 [sample02.002.char](https://github.com/shruax/charsample/blob/main/sample02.002.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.002.char)
+- 整数数据类型 [sample02.003.char](https://github.com/shruax/charsample/blob/main/sample02.003.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.003.char)
+- 浮点数数据类型 [sample02.004.char](https://github.com/shruax/charsample/blob/main/sample02.004.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.004.char)
+- 字节数数据类型 [sample02.005.char](https://github.com/shruax/charsample/blob/main/sample02.005.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.005.char)
 
 ### 流程控制与跳转
 
-- 循环及其控制 [sample03.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.001.char)
-- 条件判断分支 [sample03.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.002.char)
+- 循环及其控制 [sample03.001.char](https://github.com/shruax/charsample/blob/main/sample03.001.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.001.char)
+- 条件判断分支 [sample03.002.char](https://github.com/shruax/charsample/blob/main/sample03.002.char) [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.002.char)
 
