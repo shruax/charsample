@@ -29,4 +29,9 @@ pl("%v, %v", typeOf(c1 + float(c2) / 5), c1 + float(c2) / 5)
 // 整数与布尔值操作结果为整数，此时true为1，false为0
 plt(3 + !false)
 
+// 无符号整数（uint）可以在赋值时加上u后缀来让系统理解
+u1 := 18u
+
+plt(u1)
+
 

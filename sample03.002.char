@@ -1,0 +1,32 @@
+// 示例：条件判断分支
+
+var a
+
+// if 分支，如果条件满足（布尔表达式值为true）则执行，否则跳过
+if !a {
+	pln("!a")
+}
+
+pln("!a", !a)
+
+// if ... else ... 分支，如果条件满足走if分支，否则走else分支
+if a {
+	pln("a =", a)
+} else {
+	pln("a is not initialized")
+}
+
+// if ... else if ... 分支，如果条件满足走if分支，不满足则继续判断下一个if条件是否满足
+// 所有if条件均不满足，则走else分支
+b := 1
+
+if b {
+	pln("b =", b)
+} else if b < 2 {
+	pln("b is not initialized")
+} else {
+	pln("none")
+}
+
+pln("!b", !b)
+

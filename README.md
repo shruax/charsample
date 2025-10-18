@@ -330,5 +330,6 @@ return v
 
 ### 流程控制与跳转
 
-- 流程控制与跳转 [sample03.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.001.char)
+- 循环及其控制 [sample03.001.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.001.char)
+- 条件判断分支 [sample03.002.char](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.002.char)
 
