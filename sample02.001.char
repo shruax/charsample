@@ -4,6 +4,7 @@
 // 声明后没有赋值的变量，等同于赋值为undefined
 var v1
 
+// 也可以将一个变量赋值为 undefined，等同于没有对其赋任何值
 var v2 = undefined
 
 pln(v1, v2)

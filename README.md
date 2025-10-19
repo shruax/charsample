@@ -28,7 +28,7 @@
 
 察语言的Github库在 [这里](https://github.com/topxeq/charlang) 。如果需要自行编译或拓展察语言功能，可以从这里开始。
 
-各支持系统的快速下载链接：
+察语言支持的各个操作系统的主程序压缩包快速下载链接：
 
 - [Windows x64](https://topget.org/pub/char.zip)
 - [Windows x64(无终端窗口版，一般用于窗口GUI应用)](https://topget.org/pub/charw.zip)
@@ -323,6 +323,8 @@ return v
 
 ### 常见数据类型详解
 
+在察语言中，对象类也可以理解成数据类型（实际上，察语言内部也是将数据类型全部封装成对象的），例如布尔数据类型我们可以理解为布尔对象类，而布尔类型的的值或变量，我们都可以称之为一个布尔对象（实例）。后面说明中常会混用这几种说法，应该都好理解，不再重复说明。
+
 - undefined数据类型 [sample02.001.char](https://github.com/shruax/charsample/blob/main/sample02.001.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.001.char)
 - 布尔数据类型 [sample02.002.char](https://github.com/shruax/charsample/blob/main/sample02.002.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.002.char)
 - 整数数据类型 [sample02.003.char](https://github.com/shruax/charsample/blob/main/sample02.003.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.003.char)
@@ -333,4 +335,50 @@ return v
 
 - 循环及其控制 [sample03.001.char](https://github.com/shruax/charsample/blob/main/sample03.001.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.001.char)
 - 条件判断分支 [sample03.002.char](https://github.com/shruax/charsample/blob/main/sample03.002.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.002.char)
+
+## 对象（类）列表及说明
+
+### undefined
+
+undefined 是一个特殊的对象，表示没有赋值的值，或者某个函数没有返回值等含义。具体使用请参看 [例子](https://github.com/shruax/charsample/blob/main/sample02.001.char)
+
+### bool
+
+布尔 bool 类型的对象的说明请参看 [例子](https://github.com/shruax/charsample/blob/main/sample02.002.char)
+
+## 常见内置函数列表
+
+### 基础与调试类
+
+### globals
+
+- 说明：获取所有全局变量，返回值是一个映射（map）对象，包含的键值对即为所有当前的全局变量。
+- 用法示例：
+
+```shell
+C:\Users\Administrator>char
+Charlang 2.0.1 by TopXeQ
+> pln(globals())
+{"scriptPathG": "", "runModeG": "repl", "argsG": ["char"], "versionG": "2.0.1"}
+>
+```
+
+### len
+
+- 说明：获取支持该函数各种所有值、变量和对象等的长度或实际含量等，返回值是一个整数值。
+- 用法示例：
+
+```shell
+C:\Users\Administrator>char
+Charlang 2.0.1 by TopXeQ
+> len("abc123")
+6
+> len(["a", "b", 1.2])
+3
+> len1 := len({"field1": "value1", "field2": "value2"})
+> pln(len1)
+2
+>
+
+```
 
