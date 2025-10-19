@@ -329,7 +329,8 @@ return v
 - 布尔数据类型 [sample02.002.char](https://github.com/shruax/charsample/blob/main/sample02.002.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.002.char)
 - 整数数据类型 [sample02.003.char](https://github.com/shruax/charsample/blob/main/sample02.003.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.003.char)
 - 浮点数数据类型 [sample02.004.char](https://github.com/shruax/charsample/blob/main/sample02.004.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.004.char)
-- 字节数数据类型 [sample02.005.char](https://github.com/shruax/charsample/blob/main/sample02.005.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.005.char)
+- 字节数据类型 [sample02.005.char](https://github.com/shruax/charsample/blob/main/sample02.005.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.005.char)
+- 字符数据类型 [sample02.006.char](https://github.com/shruax/charsample/blob/main/sample02.006.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.006.char)
 
 ### 流程控制与跳转
 
