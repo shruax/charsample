@@ -35,6 +35,10 @@
 - [Linux Amd64](https://topget.org/pub/char.tar.gz)
 - [Linux Arm8(Termux)](https://topget.org/pub/charArm8.tar.gz)
 
+[察语言的Golang包文档地址](https://pkg.go.dev/github.com/topxeq/charlang)
+
+[英文版内置函数参考](https://topget.org/dc/charlang/funcs)
+
 ## 快速入门
 
 ### 快速安装与使用
@@ -331,6 +335,7 @@ return v
 - 浮点数数据类型 [sample02.004.char](https://github.com/shruax/charsample/blob/main/sample02.004.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.004.char)
 - 字节数据类型 [sample02.005.char](https://github.com/shruax/charsample/blob/main/sample02.005.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.005.char)
 - 字符数据类型 [sample02.006.char](https://github.com/shruax/charsample/blob/main/sample02.006.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.006.char)
+- 字符串、字节数组与字符数组 [sample02.007.char](https://github.com/shruax/charsample/blob/main/sample02.007.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.007.char)
 
 ### 流程控制与跳转
 
@@ -383,3 +388,6 @@ Charlang 2.0.1 by TopXeQ
 
 ```
 
+## 专题与杂项
+
+### 
