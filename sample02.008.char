@@ -1,0 +1,232 @@
+// 示例：数组
+
+// 察语言中的数组使用方括号括起来表示
+// 数组中的元素可以是不同的数据类型
+a := [1, 2, 3, "abc", 12.3]
+
+println("a:", a)
+
+// 数组元素使用方括号括起来的下标方式索引取值
+// 索引号从0开始
+println("a[2]:", a[2])
+
+// 索引号为负表示从数组尾部倒着取值，-1表示倒数第一项，-2表示倒数第二项，依此类推
+println("a[2]:", a[2])
+println("a[-1]:", a[-1])
+
+// 内置函数len可以被用于获取数组中元素的个数（也常称为数组的长度）
+println("length of a:", len(a))
+
+// 数组a此时的长度为5，索引号从0到4
+
+// 对数组变量重新赋值
+a = [1, 2]
+
+// 在数组中增加元素使用内置函数append，与Go语言相同
+a = append(a, "abc")
+
+// 数组中的元素甚至可以是另一个数组（即嵌套数组）
+// 这里数组b就嵌套了数组a（第三个元素是数组a）
+b := ["xyz", 16, a]
+
+pln("b:", b)
+
+// 更多关于数组的延伸例子
+
+// 使用appendArray内置函数将一个数组添加到另一个数组的末尾
+// 这样相当于数组的合并，b中的每一项将依次添加到数组a的末尾
+a = appendArray(a, b)
+
+plt(a)
+
+// 如果使用append函数，则是将后面的数组整个作为一个数据项添加到第一个数组的末尾
+a = append(a, [true, bytes(30, 31)])
+
+plt(a)
+
+// 可以对数组项使用一元操作符
+a[0]++
+
+// 可以给数组项赋值为另一个数据类型
+a[1] = [3.2, 16]
+
+// 处理数组相关的异常
+try {
+	a[7] = "7th"  // 这里索引超界了
+} catch e {
+	pl("exception: %v", e)
+}
+
+a[4] = 1000
+
+// 对数组中最后一项进行赋值
+a[len(a) - 1] = "last"
+
+pl("a: %v", a)
+
+// 对嵌套数组的数据项如何索引取值
+pl("a[1][1] = %v", a[1][1])
+
+b1 := [19, 19]
+
+pl("a + b = %v", appendArray(a, b1))
+
+// appendList, appendArray, appendSlice这三个内置函数是等价的
+c := appendList(appendList([a], [b]), b)
+
+plt(c)
+
+// 数组的切片
+// 获取数组a的索引号为3到4的项（索引号从0开始，切片时从第一个数字代表的索引项开始截取，并且不包含后一个数字表示的项）
+d := a[3:5]
+
+plt(d)
+
+// 切片时第二个数字为负数，表示从结尾开始倒着取
+// 数组最后一项索引为len(a)-1，因此-1代表len(a)-1即倒数第1项，-2代表len(a)-2即倒数第2项，依此类推
+d1 := a[3:-1]
+
+pl("d1: %v", d1)
+
+// 删除单个数组项使用removeItem或removeArrayItem内置函数，两者等价
+// 第2个参数表示删除索引为5的项，即删除第6项
+e1 := removeItem(a, 5)
+
+plt(e1)
+
+// 删除多个数组项使用removeItems内置函数
+// 后两个参数表示从索引1的项删除到索引3的项（不包含3），即删除第二项与第三项
+e2 := removeItems(a, 1, 3)
+
+plt(e2)
+
+// 使用make内置函数创建一个容量为5，实际数据项为2个的数组
+// 两个数据项将被赋默认空值undefined
+f := make("array", 2, 5)
+
+plo(f)
+
+plt(f[1])
+
+// 将数组f的第一项赋值为另一个数组
+// make带一个参数表示创建实际数据项为2的数组
+f[0] = make("array", 2)
+f[0][0] = false
+f[0][1] = true
+
+plt(f)
+
+g := [1.2, 3, 56]
+
+plt(g)
+
+// 内置函数arrayContains用于判断数组中是否存在某个取值的数据项
+pln(arrayContains(g, 56))
+pln(arrayContains(g, "abc"))
+
+// 枚举数组中的每一项（每次枚举包括序号和值）
+for i, v in c {
+	pl("i: %v, v: %v", i, v)
+}
+
+// 也可以用三段式for循环结合数组下标索引来进行枚举
+for i := 0; i < len(c); i ++ {
+	pl("i: %v, v: %v", i, c[i])
+}
+
+h := [3, 17, 2, 5, 0.6, 22.8]
+
+plt(h)
+
+// 数组的排序可直接使用内置函数sort
+// 注意sort函数会改变原数组，因此h1实际上与h将是一样的
+h1 := sort(h)
+
+// plt如果带多个参数，将会一行一个一次输出每一项，包含每行的索引号
+plt(h, h1)
+
+// 注意sort函数无法排序某些复杂类型的数据项，会抛出异常
+var c1
+try {
+	c1 = sort(c)
+} catch e {
+	pl("exception while sorting: %v", e)
+}
+
+plt(c, c1)
+
+// 使用sortArray内置函数，对于无法比较的数据项会忽略
+c1a := sortArray(c)
+
+plt("sortArray:", c, c1a)
+
+// sortArray函数还可以对数据项为映射（map）类型的数组进行排序，第二个参数为指定的排序字段名
+
+// 按key1字段排序
+plt(sortArray([{"key1": "value1", "key2": "value2"}, {"key1": "value0", "key3": "value2"}, {"key1": "value3", "key2": "value1"}], "key1"))
+
+// 加desc参数表示倒序排序
+plt(sortArray([{"key1": "value1", "key2": "value2"}, {"key1": "value0", "key3": "value2"}, {"key1": "value3", "key2": "value1"}], "key1", "desc"))
+
+// 也可以使用ex模块中的排序函数
+ex := import("ex")
+
+func1 := func(idx1, idx2) {
+	// plo(c, idx1, idx2)
+	return toStr(c[idx1]) < toStr(c[idx2])
+}
+
+// 根据自定义的函数func1对数组c进行排序
+c2 := ex.sortByFuncQuick(c, func1)
+
+plt(c, c2)
+
+m := ["abc", "", "123", "qwer", "fghj"]
+
+plt(m)
+
+m1 := sort(m)
+
+plt(m, m1)
+
+// 根据自定义的函数func2对数组c进行排序，空字符串最大
+func2 := func(data, idx1, idx2) {
+	// pln(data, idx1, idx2)
+	if data[idx1] == "" {
+		return false
+	}
+
+	if data[idx2] == "" {
+		return true
+	}
+
+	return toStr(data[idx1]) < toStr(data[idx2])
+}
+
+n := ["abc", "", "123", "qwer", "fghj"]
+
+plt(n)
+
+n1 := ex.sortByFunc(n, func2)
+
+plt(n, n1)
+
+// 也可以自己手动对数组排序
+a = [1, 3, 2.5, 435, "abc", "zbds123", "0123a", "2.33", 2.33]
+
+pln(a)
+
+for i in len(a) {
+	for j := i + 1; j < len(a); j ++ {
+		if toStr(a[i]) < toStr(a[j]) {
+			valueT := a[i]
+			a[i] = a[j]
+			a[j] = valueT
+		}
+	}
+}
+
+pln(a)
+
+
+

@@ -336,6 +336,7 @@ return v
 - 字节数据类型 [sample02.005.char](https://github.com/shruax/charsample/blob/main/sample02.005.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.005.char)
 - 字符数据类型 [sample02.006.char](https://github.com/shruax/charsample/blob/main/sample02.006.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.006.char)
 - 字符串、字节数组与字符数组 [sample02.007.char](https://github.com/shruax/charsample/blob/main/sample02.007.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.007.char)
+- 数组 [sample02.008.char](https://github.com/shruax/charsample/blob/main/sample02.008.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample02.008.char)
 
 ### 流程控制与跳转
 
