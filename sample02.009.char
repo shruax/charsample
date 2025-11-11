@@ -1,0 +1,292 @@
+// 示例：映射与有序映射
+
+// 察语言中的映射（map）类型的数据是由花括号括起来的键值对（key-value pair）来表示的
+// 一般来说，键（key）都是字符串类型，值（value）的数据类型可以是任意察语言支持的类型
+
+// 声明一个变量a并将其赋值为一个空的映射（即不含任何键值对）
+a := {}
+
+// 对映射中某个键进行赋值时，所有的键都将转换为字符串
+// 值将保持原有的数据类型
+// 对映射中某个键赋值时，使用方括号进行索引，也可以用小数点进行索引，分别符合一些常用语言中的习惯
+a["Num"] = 3
+a[5] = "abc"
+a[-1] = true
+a["ary"] = [1, "xyz", false]
+a[false] = "not true"
+a.Item1 = "item 1"
+
+// 输出变量a可以看到，所有键都已是字符串类型
+// 结果类似{"false": "not true", "Item1": "item 1", "Num": 3, "5": "abc", "-1": true, "ary": [1, "xyz", false]}
+// 注意：察语言中的映射输出时，键值对的顺序是不固定的，这点与Go语言相同
+// 如果需要确保顺序（例如进行枚举时希望按某种顺序），察语言提供有序映射类型，后面将提到
+pln(a)
+
+// 使用内置函数len也可以对映射取长度，映射的长度是其键值对的数量
+pl("length of a: %v", len(a))
+
+// 输出某个键对应的值，注意使用了方括号和小数点的索引方法，两种方法都是可以的
+pl("a.Num: %v, a[5]: %v", a.Num, a[5])
+
+// 可以直接对映射中的值进行一元运算符操作等
+a["Num"]++
+pln(a["Num"])
+
+// 映射中的数组值也可以进行切片等操作
+pln(a[5][2:3])
+
+a[5] = a[5] + a[5]
+
+pln(a[5])
+
+// 对映射进行枚举（遍历）
+// 使用for...in循环
+// 注意，循环顺序也是无序的（顺序随机）
+for k, v in a {
+	println("[", k, "]:", v)
+}
+  
+pln("---")
+
+// 声明一个包含初始值的映射
+// 可以看到，映射中可以包含任何值对象，甚至是嵌套映射
+b := {"intItem": 12, "floatItem": 5.6, "boolItem": true, "stringItem": "str1", "arrayItem": ["array", "in", "map"], "mapItem": {"map": 1, "in": "map"}}
+
+plt(b)
+
+pln("---")
+
+// 用var关键字声明变量并赋初值也是可以的
+var c = {}
+
+// 再次提醒所有键将被转换为字符串
+c[3] = "3"
+c[18] = "abc"
+c[-198] = "true"
+
+pl("c: %v", c)
+
+v1 := c[18]
+
+if v1 == undefined {
+	println("v1:", v1)
+}
+
+// 对于不存在的键，对其索引取值将返回undefined
+v2 := c[19]
+
+if v2 == undefined {
+	println("v2:", v2)
+}
+
+// 使用delete内置函数可以删除某个键值对
+delete(c, 18)
+
+println("c:", c)
+
+// 使用映射对象的方法set也可以对键进行赋值
+c.set("new", true)
+
+println("c:", c)
+
+// set方法必须包含两个参数，第一个是键名，第二个是键值
+// 这里故意少写了一个参数，后面返回值rs将看出返回的是一个错误对象
+rs := c.set("another")
+
+println("rs:", rs)
+
+// 与set方法相对应，映射get方法用于获取某个键名对应的值
+// c.get("new")等同于c["new"]或c.new
+println(`c["new"]`, c.get("new"))
+
+// c.get("none")的值将是undefined
+pl(`c["none"]: %v`, c.get("none"))
+
+// size方法等同于len(c)
+pln("size:", c.size())
+
+// keys方法将返回映射中所有的键名，返回值是一个数组
+pln("keys:", c.keys())
+
+// 相应地，values方法将返回映射中所有键名对应的取值，返回值是一个数组
+pln("values:", c.values())
+
+// 调用映射不支持的方法时，会产生异常，可以用try...catch...finally组合来对异常进行捕获与处理
+try {
+	pln("unknown method:", c.unknown())
+} catch e {
+	pln("exception:", e)
+} finally {
+	pln("do finally")
+}
+
+// toOrdered方法将基于该映射生成一个有序映射
+// 注意，这样生成的虽然是有序映射，但初始的顺序也是不确定的
+// 可以使用sort等方法对齐进行排序，详见下面的例子
+pln("toOrdered:", c.toOrdered())
+
+// 有序映射相关
+
+// 初始化一个有序映射，使用ordererMap内置函数
+f := orderedMap()
+
+// 同样可以用方括号、小数点进行有序映射的索引
+// 也可以用set和get方法进行赋值和取值
+// 注意，映射的排序将以键值对加入映射的先后为顺序
+f["a"] = "value a"
+f.c = "value c"
+f.set("b", f.get("a"))
+
+// 目前键名的顺序是a、c、b
+pln(f)
+
+// 根据键名进行排序
+f.sort()
+
+// 此时顺序为a、b、c
+pln(f)
+
+// 根据键名按倒序进行排序
+f.sort("-desc")
+
+// 此时顺序为a、b、c
+pln(f)
+
+// 也可以用sortReverse方法进行倒序排序
+f.sortReverse()
+
+// 此时顺序仍为a、b、c
+pln(f)
+
+// orderedMap函数也可以带一个映射类型的参数，将以该映射为基础创建一个有序映射
+// 注意初始顺序仍然是随机的
+g := orderedMap({"k1": "v1", "k2": "v2", "k1.5": 0})
+
+// 对其进行排序，sort方法会返回本映射对象作为执行结果
+pln(g.sort())
+
+//
+map1 := orderedMap("key1", "value1", "key2", "value0")
+
+value2 := 1
+
+// 从JSON字符串生成一个数组赋值给value3
+value3 := fromJson(`["s1", "s2"]`)
+plo(value3)
+
+map1["SSS"] = "v11"
+
+map1["k1"] = "v1"
+map1.a2 = value2
+map1["3"] = value3
+
+plt(map1)
+
+// 生成该有序映射的JSON字符串表达
+json1 := toJson(map1)
+
+pln(json1)
+
+// toMap方法将有序映射转换为普通映射
+map1a := callMethod(map1, "toMap")
+
+plt(map1a)
+
+// 再将其转换回有序映射，此时顺序随机
+map2 := orderedMap(map1a)
+
+plt(map2)
+
+// 将a2这一项挪到最前
+map2.moveToFront("a2")
+
+pln(map2)
+
+// 将3这一项挪到SSS这一项之前
+map2.moveBefore("3", "SSS")
+
+pln(map2)
+
+// 彻底排序
+map2.sort()
+
+pln("sorted:", map2)
+
+// 将下面两项依次挪到最前
+map2.moveToFront("3")
+map2.moveToFront("SSS")
+
+// 试图挪动一个不存在的键值将会返回一个错误
+errT := map2.moveToFront("kkk")
+
+if isErr(errT) {
+	pl("failed to move: %v", errT)
+}
+
+// 对有序映射进行枚举/遍历，此时也是按顺序进行的
+for k, v in map2 {
+	pln(k, v)
+}
+
+// 也可以用三段式for循环加getItemByIndex方法的组合来遍历有序映射
+lenT := len(map2)
+
+for i := 0; i < lenT; i ++ {
+	// 有序映射的getItemByIndex方法将根据序号返回一个键值对（数组类型，第一项是键名，第二项是键值）
+	itemT := map2.getItemByIndex(i)
+	
+	pl("[%v] %v: %v", i, itemT[0], itemT[1])
+}
+
+// moveToBack方法用于将键值对移到最后
+map2.moveToBack("k1")
+
+// moveAfter方法将某一项挪到另一项之后
+// method方法是某些对象支持的调用该对象其他方法函数的另一种写法，下面的写法等效于map2.moveAfter("a2", "SSS")
+map2.method("moveAfter", "a2", "SSS")
+
+pln(map2)
+
+// 有序映射的first和last方法分别用于获取第一个和最后一个键值对
+// 返回值也是数组形式，第一项为键名，第二项为键值
+// first也可以写作oldest，last也可以写作newest
+pln(map2.first())
+pln(map2.last())
+
+// 使用自定义函数来进行排序
+// 自定义函数要使用代理（delegate）对象，详细说明请参见相关的例子，注意代理对象使用前需要用compile方法编译
+// 此处的自定义函数实现了字符串正常排序，但key2始终保持最大
+// 最终使用有序映射map2的sortByFunc方法并传入代理对象dele1作为参数来实现排序
+sourceT := `
+param ...vargs
+
+try {
+	// 确保'key2'为最大的一项
+	if vargs[0] == "key2" {
+		return false
+	} else if vargs[1] == "key2" {
+		return true
+	}
+	
+	rs := vargs[0] < vargs[1]
+	
+	return rs
+} catch e {
+	pln("exception:", e)
+	return false
+}
+
+return false
+`
+
+// 创建代理（delegate）对象
+dele1 := delegate(sourceT)
+
+// 编译代理对象的代码
+dele1.compile()
+
+// 调用有序映射对象的sortByFunc方法并传入代理对象即可实现自定义排序
+map2.sortByFunc(dele1)
+
+pln(map2)
+
