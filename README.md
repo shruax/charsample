@@ -324,6 +324,7 @@ return v
 - 注释的写法 [sample01.003.char](https://github.com/shruax/charsample/blob/main/sample01.003.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.003.char)
 - 变量的类型、声明与赋值 [sample01.004.char](https://github.com/shruax/charsample/blob/main/sample01.004.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.004.char)
 - 函数的声明与使用（递归法计算斐波那契数列） [sample01.005.char](https://github.com/shruax/charsample/blob/main/sample01.005.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.005.char)
+- 获取数据类型的编码或名称 [sample01.006.char](https://github.com/shruax/charsample/blob/main/sample01.006.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample01.006.char)
 
 ### 常见数据类型详解
 
@@ -344,6 +345,10 @@ return v
 - 循环及其控制 [sample03.001.char](https://github.com/shruax/charsample/blob/main/sample03.001.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.001.char)
 - 条件判断分支 [sample03.002.char](https://github.com/shruax/charsample/blob/main/sample03.002.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample03.002.char)
 
+### 函数相关
+
+- 函数的（输入）参数 [sample04.001.char](https://github.com/shruax/charsample/blob/main/sample04.001.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample04.001.char)
+
 ## 对象（类）列表及说明
 
 ### undefined
@@ -354,11 +359,15 @@ undefined 是一个特殊的对象，表示没有赋值的值，或者某个函�
 
 布尔 bool 类型的对象的说明请参看 [例子](https://github.com/shruax/charsample/blob/main/sample02.002.char)
 
+### string
+
+字符串 string 类型的对象的说明请参看 [例子](https://github.com/shruax/charsample/blob/main/sample02.007.char)
+
 ## 常见内置函数列表
 
 ### 基础与调试类
 
-### globals
+#### globals 获取所有全局变量
 
 - 说明：获取所有全局变量，返回值是一个映射（map）对象，包含的键值对即为所有当前的全局变量。
 - 用法示例：
@@ -371,7 +380,7 @@ Charlang 2.0.1 by TopXeQ
 >
 ```
 
-### len
+#### len 获取对象长度（字符串长度、数组项个数、映射项个数等）
 
 - 说明：获取支持该函数的各种值、变量或对象等的长度或实际含量等，例如可以获取字符串的长度、数组的元素个数、映射的键值对数量等，返回值是一个整数值。
 - 用法示例：
@@ -387,6 +396,48 @@ Charlang 2.0.1 by TopXeQ
 > pln(len1)
 2
 >
+
+```
+
+### 数据类型相关
+
+#### typeCode 获取数据类型编码
+
+- 说明：获取支持任意数据、常量或变量的数据类型的编码，返回值是一个整数值。
+- 用法示例：
+
+```go
+a := 1
+
+pl("typeCode of a: %v", typeCode(a))
+
+```
+
+#### typeName 获取数据类型名称
+
+- 说明：获取支持任意数据、常量或变量的数据类型的名称，返回值是一个字符串。
+- 用法示例：
+
+```go
+a := 1
+
+pl("typeName of a: %v", typeName(a))
+
+```
+
+#### typeof 获取数据类型名称
+
+- 说明：等价于typeName。
+
+#### typeOfAny 获取any类型数据的实际类型
+
+- 说明：获取any类型数据中实际的数据类型（该数据在察语言中如果存在，则返回该数据类型名称，否则返回Go语言中的数据类型），返回值是一个字符串。
+- 用法示例：
+
+```shell
+a := any()
+
+pl("typeOfAny of a: %v", typeOfAny(a))
 
 ```
 

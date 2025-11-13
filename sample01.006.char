@@ -1,0 +1,28 @@
+// 示例：获取数据类型的编码或名称
+// 内置函数typeCode用于获取数值或变量等的数据类型编码，返回值是一个整数
+// 内置函数typeName或typeOf用于获取数值或变量等的数据类型名称，返回值是一个字符串
+
+a := 1
+
+pl("typeCode of a: %v", typeCode(a))
+pl("typeName of a: %v", typeName(a))
+
+b := "abc123"
+
+pl("typeCode of b: %v", typeCode(b))
+pl("typeName of b: %v", typeName(b))
+
+c := [1, 2.5, "abc"]
+
+pl("typeCode of c: %v", typeCode(c))
+pl("typeName of c: %v", typeName(c))
+
+d := {"field1": "value1", "field2": "value2"}
+
+pl("typeCode of d: %v", typeCode(d))
+
+// typeOf与typeName是等价的
+pl("typeName of d: %v", typeOf(d))
+
+// typeCode、typeName、typeOf传入的参数也可以直接是数值
+pl("typeName of 123.5: %v", typeOf(123.5))
