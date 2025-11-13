@@ -443,4 +443,21 @@ pl("typeOfAny of a: %v", typeOfAny(a))
 
 ## 专题与杂项
 
-### 
+### 预定义的全局变量
+
+- versionG: 当前察语言（Charlang）的版本号
+- basePathG: 察语言的根路径，一般是当前系统登录用户的用户根目录，例如 c:\Users\Administrator ；当察语言作为系统服务运行时，一般是系统的根目录下的char目录，例如 Windows 下的 c:\char 或 Linux 下的 /char
+- argsG: 运行察语言主程序时的命令行参数，数组类型，其中每一项都是字符串
+- scriptPathG: 察语言当前运行的脚本（源代码）文件的路径
+- runModeG: 当前察语言的运行模式，例如 script, repl, service, charms, chp, chardc 等
+
+当察语言运行在服务（器）模式下（即以WEB/应用/微服务多合一服务器模式运行）时，特定的预定义全局变量：variables:
+
+- requestG: HTTP请求对象，包含该次请求的各种信息
+- responseG: HTTP响应对象，处理HTTP请求时将基于HTTP响应对象进行设置响应头、写响应体等操作
+- reqUriG: HTTP请求的URI，例如 “static/images/img001.png”
+- paraMapG: HTTP请求中的 GET/POST 参数，是一个映射对象，类似 `{"auth": "xxxxx", "input1": "value1"}`
+
+Windows 操作系统下，特定的预定义全局变量：
+
+- guiG: 其中保存一个连接至系统的WebView2组件的对象，可以用于启动和操控图形界面
