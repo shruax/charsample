@@ -380,6 +380,83 @@ Charlang 2.0.1 by TopXeQ
 >
 ```
 
+#### getConst 获取预定义常量
+
+- 说明：获取一些系统预定义的常量，例如数学上的π值、e值等，更多的可取常量请参考后面的预定异常量一节。
+- 用法示例：
+
+```shell
+C:\Users\Administrator>char
+Charlang 2.0.1 by TopXeQ
+> plt(getConst("math.Pi"))
+(float)3.141592653589793
+25
+> plt(getConst("math.E")) 
+(float)2.718281828459045
+25
+>
+```
+
+#### callMethod 调用对象的方法
+
+- 说明：调用察语言对象的方法。借用面向对象的概念，察语言中的任何数据类型也都可以看作是一个对象，对象一般具有方法（即函数），方法可以用小数点的写法来调用，也可以使用内置函数 callMethod 来调用。
+- 用法示例：
+
+```shell
+C:\Users\Administrator>char
+Charlang 2.0.7 by TopXeQ
+> a := [1, 2]
+> a.size()
+2
+> callMethod(a, "size")
+2
+> callMethod(a, "remove", 1)
+[1]
+> a
+[1, 2]
+>
+```
+
+注意，上面例子中，`a.size()` 等价于 `callMethod(a, "size")` 的写法。
+
+#### mt 等价于 callMethod
+
+#### callNamedFunc 调用预定义Go语言函数
+
+- 说明：调用一些Go语言函数，一般用于扩展察语言功能。注意，并非Go语言中所有包都可以直接被调用，只有在察语言中明确声明过的某些包中的函数才能被这样调用，具体可调用的请参看后面预定义可调用的Go语言函数一节。
+- 用法示例：
+
+```go
+// 获取常用的tk对象，注意内置函数callNamedFunc返回的是一个数组，这是为了适应某些Go语言函数具有多个返回值的情况
+tk := callNamedFunc("tk.NewTK")[0]
+
+pln(tk)
+
+// 调用tk对象的GetTextSimilarity方法
+// 注意callMethodEx内置函数返回的也是一个数组，原因也是为了适应某些Go语言函数具有多个返回值的情况
+rs := callMethodEx(tk, "GetTextSimilarity", "abc", "abd")[0]
+
+plt(rs)
+
+// 调用Go语言中time.Now()函数
+// 注意，并非Go语言中所有包都可以直接被调用，只有在察语言中明确声明过的某些包中的函数才能被这样调用
+time1 := callNamedFunc("time.Now")[0]
+
+plt(time1)
+
+// 调用Go语言中time.Time对象的AddDate方法，获取当前时间的前一个月的时间
+time2 := callMethodEx(time1, "AddDate", 0, -1, 0)[0]
+
+plt(time2)
+
+```
+
+#### callMethodEx 调用Go语言对象的方法
+
+- 说明：对于调用callNamedFunc函数返回的Go语言对象，调用它的方法函数。具体用法参看 callNamedFunc 函数的说明。
+
+#### mtEx 等价于 callMethodEx
+
 #### len 获取对象长度（字符串长度、数组项个数、映射项个数等）
 
 - 说明：获取支持该函数的各种值、变量或对象等的长度或实际含量等，例如可以获取字符串的长度、数组的元素个数、映射的键值对数量等，返回值是一个整数值。
@@ -461,3 +538,119 @@ pl("typeOfAny of a: %v", typeOfAny(a))
 Windows 操作系统下，特定的预定义全局变量：
 
 - guiG: 其中保存一个连接至系统的WebView2组件的对象，可以用于启动和操控图形界面
+
+### 预定义的一些常量
+
+```go
+"tk.TimeFormat":            tk.TimeFormat,            // "2006-01-02 15:04:05"
+"tk.TimeFormatMS":          tk.TimeFormatMS,          // "2006-01-02 15:04:05.000"
+"tk.TimeFormatMSCompact":   tk.TimeFormatMSCompact,   // "20060102150405.000"
+"tk.TimeFormatCompact":     tk.TimeFormatCompact,     // "20060102150405"
+"tk.TimeFormatCompact2":    tk.TimeFormatCompact2,    // "2006/01/02 15:04:05"
+"tk.TimeFormatDateCompact": tk.TimeFormatDateCompact, // "20060102"
+
+"time.Layout":   time.Layout,
+"time.RFC1123":  time.RFC1123,
+"time.RFC3339":  time.RFC3339,
+"time.DateTime": time.DateTime,
+"time.DateOnly": time.DateOnly,
+"time.TimeOnly": time.TimeOnly,
+
+"time.Millisecond": time.Millisecond,
+"time.Second": time.Second,
+"time.Minute": time.Minute,
+"time.Hour": time.Hour,
+
+"math.Pi":   math.Pi,
+"math.E":   math.E,
+
+"maxInt":   math.MaxInt,
+"minInt":   math.MinInt,
+"maxFloat": math.MaxFloat64,
+"minFloat": math.SmallestNonzeroFloat64,
+"math.MaxInt":   math.MaxInt,
+"math.MinInt":   math.MinInt,
+"math.MaxFloat": math.MaxFloat64,
+"math.MinFloat": math.SmallestNonzeroFloat64,
+
+
+"http.StatusContinue":           100, // RFC 9110, 15.2.1
+"http.StatusSwitchingProtocols": 101, // RFC 9110, 15.2.2
+"http.StatusProcessing":         102, // RFC 2518, 10.1
+"http.StatusEarlyHints":         103, // RFC 8297
+
+"http.StatusOK":                   200, // RFC 9110, 15.3.1
+"http.StatusCreated":              201, // RFC 9110, 15.3.2
+"http.StatusAccepted":             202, // RFC 9110, 15.3.3
+"http.StatusNonAuthoritativeInfo": 203, // RFC 9110, 15.3.4
+"http.StatusNoContent":            204, // RFC 9110, 15.3.5
+"http.StatusResetContent":         205, // RFC 9110, 15.3.6
+"http.StatusPartialContent":       206, // RFC 9110, 15.3.7
+"http.StatusMultiStatus":          207, // RFC 4918, 11.1
+"http.StatusAlreadyReported":      208, // RFC 5842, 7.1
+"http.StatusIMUsed":               226, // RFC 3229, 10.4.1
+
+"http.StatusMultipleChoices":  300, // RFC 9110, 15.4.1
+"http.StatusMovedPermanently": 301, // RFC 9110, 15.4.2
+"http.StatusFound":            302, // RFC 9110, 15.4.3
+"http.StatusSeeOther":         303, // RFC 9110, 15.4.4
+"http.StatusNotModified":      304, // RFC 9110, 15.4.5
+"http.StatusUseProxy":         305, // RFC 9110, 15.4.6
+
+"http.StatusTemporaryRedirect": 307, // RFC 9110, 15.4.8
+"http.StatusPermanentRedirect": 308, // RFC 9110, 15.4.9
+
+"http.StatusBadRequest":                   400, // RFC 9110, 15.5.1
+"http.StatusUnauthorized":                 401, // RFC 9110, 15.5.2
+"http.StatusPaymentRequired":              402, // RFC 9110, 15.5.3
+"http.StatusForbidden":                    403, // RFC 9110, 15.5.4
+"http.StatusNotFound":                     404, // RFC 9110, 15.5.5
+"http.StatusMethodNotAllowed":             405, // RFC 9110, 15.5.6
+"http.StatusNotAcceptable":                406, // RFC 9110, 15.5.7
+"http.StatusProxyAuthRequired":            407, // RFC 9110, 15.5.8
+"http.StatusRequestTimeout":               408, // RFC 9110, 15.5.9
+"http.StatusConflict":                     409, // RFC 9110, 15.5.10
+"http.StatusGone":                         410, // RFC 9110, 15.5.11
+"http.StatusLengthRequired":               411, // RFC 9110, 15.5.12
+"http.StatusPreconditionFailed":           412, // RFC 9110, 15.5.13
+"http.StatusRequestEntityTooLarge":        413, // RFC 9110, 15.5.14
+"http.StatusRequestURITooLong":            414, // RFC 9110, 15.5.15
+"http.StatusUnsupportedMediaType":         415, // RFC 9110, 15.5.16
+"http.StatusRequestedRangeNotSatisfiable": 416, // RFC 9110, 15.5.17
+"http.StatusExpectationFailed":            417, // RFC 9110, 15.5.18
+"http.StatusTeapot":                       418, // RFC 9110, 15.5.19 (Unused)
+"http.StatusMisdirectedRequest":           421, // RFC 9110, 15.5.20
+"http.StatusUnprocessableEntity":          422, // RFC 9110, 15.5.21
+"http.StatusLocked":                       423, // RFC 4918, 11.3
+"http.StatusFailedDependency":             424, // RFC 4918, 11.4
+"http.StatusTooEarly":                     425, // RFC 8470, 5.2.
+"http.StatusUpgradeRequired":              426, // RFC 9110, 15.5.22
+"http.StatusPreconditionRequired":         428, // RFC 6585, 3
+"http.StatusTooManyRequests":              429, // RFC 6585, 4
+"http.StatusRequestHeaderFieldsTooLarge":  431, // RFC 6585, 5
+"http.StatusUnavailableForLegalReasons":   451, // RFC 7725, 3
+
+"http.StatusInternalServerError":           500, // RFC 9110, 15.6.1
+"http.StatusNotImplemented":                501, // RFC 9110, 15.6.2
+"http.StatusBadGateway":                    502, // RFC 9110, 15.6.3
+"http.StatusServiceUnavailable":            503, // RFC 9110, 15.6.4
+"http.StatusGatewayTimeout":                504, // RFC 9110, 15.6.5
+"http.StatusHTTPVersionNotSupported":       505, // RFC 9110, 15.6.6
+"http.StatusVariantAlsoNegotiates":         506, // RFC 2295, 8.1
+"http.StatusInsufficientStorage":           507, // RFC 4918, 11.5
+"http.StatusLoopDetected":                  508, // RFC 5842, 7.2
+"http.StatusNotExtended":                   510, // RFC 2774, 7
+"http.StatusNetworkAuthenticationRequired": 511, // RFC 6585, 6
+
+```
+
+### 预定义可调用的Go语言函数
+
+注意，目前可调用的函数还不多，主要是提供一个给开发者可自行快速扩展察语言的能力。
+
+```
+"fmt.Fprintf": fmt.Fprintf,
+"tk.NewTK":    tk.NewTK,
+"time.Now":    time.Now,
+
+```
