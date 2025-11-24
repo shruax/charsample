@@ -1,0 +1,28 @@
+// 示例：异常处理 try...catch...finally
+
+a := 0
+
+var r
+
+// catch 和 finally 均非必须，但至少需要有一项
+try {
+	r = 3 / a
+} catch e {
+	// 如果出现异常，将会走catch分支
+	// 本例中由于除数a为0，因此会出现除零异常
+	// e是类型为error的对象，其中包含异常的提示信息
+	pln("exception:", e)
+} finally {
+	// 无论是否出现异常，最后都会执行finally分支
+	// 异常时，r仍然应是未赋值状态，即undefined
+	pln("r:", r)
+}
+
+pln("done")
+
+// 运行结果输出类似：
+
+//exception: ZeroDivisionError: 
+//r: undefined
+//done
+

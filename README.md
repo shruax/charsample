@@ -349,6 +349,10 @@ return v
 
 - 函数的（输入）参数 [sample04.001.char](https://github.com/shruax/charsample/blob/main/sample04.001.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample04.001.char)
 
+### 异常处理
+
+- 异常处理 try...catch...finally [sample05.001.char](https://github.com/shruax/charsample/blob/main/sample05.001.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample05.001.char)
+
 ## 对象（类）列表及说明
 
 ### undefined
@@ -358,6 +362,14 @@ undefined 是一个特殊的对象，表示没有赋值的值，或者某个函�
 ### bool
 
 布尔 bool 类型的对象的说明请参看 [例子](https://github.com/shruax/charsample/blob/main/sample02.002.char)
+
+### int
+
+有符号整数 int 类型的对象的说明请参看 [例子](https://github.com/shruax/charsample/blob/main/sample02.003.char)
+
+### uint
+
+无符号整数 int 类型的对象的说明请参看 [例子](https://github.com/shruax/charsample/blob/main/sample02.003.char)
 
 ### string
 
@@ -518,6 +530,36 @@ pl("typeOfAny of a: %v", typeOfAny(a))
 
 ```
 
+#### bool 新建或转换为布尔类型的数据
+
+- 说明：内置函数bool如果不带参数，将新建一个值为false的布尔数据；否则将依据第一个参数的值返回一个布尔值，具体何时为true何时为false的对应关系可参看下面的例子。
+- 用法示例：
+
+```shell
+Charlang 2.0.7 by TopXeQ
+> b1 := bool()
+> b1
+false
+> b2 := bool(true)
+> b2
+true
+> b3 := bool(38)
+> b3
+true
+> b4 := bool(0.0)
+> b4
+true
+> b5 := bool(0)
+> b5
+false
+> b6 := bool("")
+> b6
+false
+> bool("abc")
+true
+>
+```
+
 ## 专题与杂项
 
 ### 预定义的全局变量
@@ -654,3 +696,85 @@ Windows 操作系统下，特定的预定义全局变量：
 "time.Now":    time.Now,
 
 ```
+
+### 在察语言中再（嵌套）运行察语言脚本
+
+#### 使用charCode对象运行一段（字符串形式的）察语言脚本代码
+
+```go
+
+sourceT := `
+param (v1, v2)
+
+return v1 + v2
+`
+
+codeT := charCode(sourceT)
+
+codeT.compile()
+
+resultT := codeT.run(12, 8.5)
+
+pl("result: %v", resultT)
+
+
+```
+
+charCode是察语言中用于保存和执行察语言代码的对象。通过内置函数 charCode 传入一个字符串类型的代码片段可以创建一个 charCode 对象实例。在执行前，必须先调用该对象的 compile 方法进行编译，然后调用 run 方法运行。运行时，还可以传入参数。
+
+本例中，sourceT 中是代码片段，代码的功能是读入两个输入参数（通过 param 关键字引入），然后返回两个参数相加的结果。codeT是生成的charCode对象。调用 codeT 的 run 方法时，传入了两个数值，整数12和小数8.5，最终将返回小数20.5。
+
+#### 传入不定长参数
+
+```go
+
+sourceT := `
+param ...vargs
+
+pln(toJson(vargs, "-sort"))
+
+return vargs[2]
+
+`
+
+codeT := charCode(sourceT)
+
+codeT.compile()
+
+rs := codeT.run("abc", 123.5, true, {"name": "Tom", "age": 16})
+
+pl("rs: %v", rs)
+
+```
+
+通过 `params ...vargs` 这样的写法，可以在 run 方法中传入不定个数的参数。
+
+
+#### charCode对象也可以以函数的方式直接调用，另外不定个数参数可以结合前面的固定个数参数一起使用
+
+```go
+
+sourceT := `
+param (v1, v2, ...vargs)
+
+pln("input:", v1, v2, ...vargs)
+
+sum := v1 + v2
+
+for i, v in vargs {
+	sum += v
+}
+
+return sum
+`
+
+addAll := charCode(sourceT).compile()
+
+resultT := addAll(12, 8.5, 2, 3, 16)
+
+pl("result: %v", resultT)
+
+```
+
+本例中，addAll是一个charCode对象，可以直接用 `addAll(12, 8.5, 2, 3, 16)` 这样类似函数调用的方式直接调用，非常方便。
+
