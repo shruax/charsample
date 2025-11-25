@@ -353,6 +353,12 @@ return v
 
 - 异常处理 try...catch...finally [sample05.001.char](https://github.com/shruax/charsample/blob/main/sample05.001.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample05.001.char)
 
+### 并发处理/多线程
+
+- 多线程的基本方式 [sample06.001.char](https://github.com/shruax/charsample/blob/main/sample06.001.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample06.001.char)
+- 多线程中传递共享参数 [sample06.002.char](https://github.com/shruax/charsample/blob/main/sample06.002.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample06.002.char)
+- 多线程中共享数据的其他方法 [sample06.003.char](https://github.com/shruax/charsample/blob/main/sample06.003.char)  [RAW](https://raw.githubusercontent.com/shruax/charsample/refs/heads/main/sample06.003.char)
+
 ## 对象（类）列表及说明
 
 ### undefined
@@ -564,6 +570,8 @@ true
 
 ### 预定义的全局变量
 
+察语言内置了一些全局变量，使用前必须通过 `global` 关键字声明。
+
 - versionG: 当前察语言（Charlang）的版本号
 - basePathG: 察语言的根路径，一般是当前系统登录用户的用户根目录，例如 c:\Users\Administrator ；当察语言作为系统服务运行时，一般是系统的根目录下的char目录，例如 Windows 下的 c:\char 或 Linux 下的 /char
 - argsG: 运行察语言主程序时的命令行参数，数组类型，其中每一项都是字符串
@@ -582,6 +590,8 @@ Windows 操作系统下，特定的预定义全局变量：
 - guiG: 其中保存一个连接至系统的WebView2组件的对象，可以用于启动和操控图形界面
 
 ### 预定义的一些常量
+
+预定义常量可以通过内置函数 getConst 来获取。例如： `getConst("math.MaxInt")`
 
 ```go
 "tk.TimeFormat":            tk.TimeFormat,            // "2006-01-02 15:04:05"

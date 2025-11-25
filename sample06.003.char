@@ -1,0 +1,57 @@
+// 示例：多线程中共享数据的其他方法
+// 传递参数时使用数组或映射等复合类型的变量，也可以实现共享数据的目的
+
+roundsT := 20
+
+func1 := func(v0, v1) {
+
+	for i := 0; i < roundsT; i++ {
+		v0[1] ++
+		v1["field1"] += 1.0
+
+		pl("(thread) v0=%v, v1=%v", v0, v1)
+
+		sleep(0.05)
+	}
+}
+
+// new 函数的第一个参数是一个数据类型名，第二个是给其赋予的初值
+a := [1, 2]
+b := {"field1": 100.0, "field2": 200.0}
+
+func1.threadRun(a, b)
+
+sleep(0.15)
+
+for i := 0; i < roundsT; i++ {
+	a[1] += 10
+	b["field1"] += 100.0
+
+	pl("(main) a=%v, b=%v", a, b)
+
+	sleep(0.065)
+}
+
+// 本例的运行结果类似下面（将无限循环，按Ctrl-C退出）：
+
+//(thread) v0=[1, 3], v1={"field1": 101, "field2": 200}
+//(thread) v0=[1, 4], v1={"field2": 200, "field1": 102}
+//(thread) v0=[1, 5], v1={"field1": 103, "field2": 200}
+//(main) a=[1, 15], b={"field1": 203, "field2": 200}
+//(thread) v0=[1, 16], v1={"field1": 204, "field2": 200}
+//(thread) v0=[1, 17], v1={"field1": 205, "field2": 200}
+//(main) a=[1, 27], b={"field1": 305, "field2": 200}
+//(thread) v0=[1, 28], v1={"field1": 306, "field2": 200}
+//(main) a=[1, 38], b={"field2": 200, "field1": 406}
+//(thread) v0=[1, 39], v1={"field1": 407, "field2": 200}
+//(main) a=[1, 49], b={"field2": 200, "field1": 507}
+//(thread) v0=[1, 50], v1={"field1": 508, "field2": 200}
+//(thread) v0=[1, 51], v1={"field2": 200, "field1": 509}
+//(main) a=[1, 61], b={"field1": 609, "field2": 200}
+//(thread) v0=[1, 62], v1={"field1": 610, "field2": 200}
+//(main) a=[1, 72], b={"field1": 710, "field2": 200}
+//(thread) v0=[1, 73], v1={"field1": 711, "field2": 200}
+//(main) a=[1, 83], b={"field1": 811, "field2": 200}
+
+// 可以看出，子线程与主线程修改的数组a中的第二个值，与映射b中的field1的键值，均实现了数值的联动修改
+
