@@ -570,7 +570,15 @@ true
 
 ### 预定义的全局变量
 
-察语言内置了一些全局变量，使用前必须通过 `global` 关键字声明。
+察语言内置了一些全局变量，使用前必须通过 `global` 关键字声明。例如：
+
+```go
+global argsG
+
+pln(argsG)
+```
+
+主要的全局变量如下：
 
 - versionG: 当前察语言（Charlang）的版本号
 - basePathG: 察语言的根路径，一般是当前系统登录用户的用户根目录，例如 c:\Users\Administrator ；当察语言作为系统服务运行时，一般是系统的根目录下的char目录，例如 Windows 下的 c:\char 或 Linux 下的 /char
